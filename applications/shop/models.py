@@ -56,7 +56,7 @@ class User(AbstractUser, DateMixin):
     A User.
     '''
 
-    REQUIRED_FIELDS = ['username', 'wallet']
+    REQUIRED_FIELDS = ['username', 'base_wallet']
     USERNAME_FIELD = 'email'
     username = models.CharField(max_length=50, verbose_name='Nick-name')
     email = models.EmailField(unique=True)
