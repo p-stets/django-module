@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MEDIA_ROOT = '/home/stets/learn.python/django/django-module/uploads/'
 
 # Application definition
 
