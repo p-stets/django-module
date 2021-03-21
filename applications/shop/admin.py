@@ -14,7 +14,7 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     model = Product
-    fields = ('id', 'name', 'price', 'current_stock', 'image', 'image_path', 'create_date', 'update_date', )
+    fields = ('id', 'name', 'description', 'price', 'current_stock', 'image', 'image_path', 'create_date', 'update_date', )
     readonly_fields = ('id', 'current_stock', 'image_path', 'create_date', 'update_date', )
     list_display = ('id', 'name', 'price', 'current_stock', 'create_date', 'update_date', )
 
