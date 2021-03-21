@@ -12,8 +12,10 @@ mccabe==0.6.1
 parso==0.7.1
 pexpect==4.8.0
 pickleshare==0.7.5
+Pillow==8.1.2
 pkg-resources==0.0.0
 prompt-toolkit==3.0.17
+psycopg2-binary==2.8.6
 ptyprocess==0.7.0
 pycodestyle==2.6.0
 pyflakes==2.2.0
