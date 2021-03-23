@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" action="{% url 'signin' %}">
+    {% csrf_token %}
+    {{ form }} {# Инпуты были заменены на переменную, в которой лежит объект класса Form #}
+    <button type="submit">Sign In</button>
+</form>
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Sign Out</button>
+</form>
+{% endblock %}

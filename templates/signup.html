@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="get" action="{% url 'form-view' %}">
+    <label>
+        <input type="text" name="my_name">
+    </label>
+    <button type="submit">Send name</button>
+</form>
+{% endblock %}
