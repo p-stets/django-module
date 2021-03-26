@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
-from main_config.settings import MEDIA_ROOT
+from main_config.settings import MEDIA_URL
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
@@ -83,7 +83,7 @@ class Product(DateMixin):
     description = models.TextField(verbose_name='Product description', max_length=2000, null=True, blank=True)
     price = models.DecimalField(verbose_name='Product price', max_digits=10,
                                 decimal_places=2, validators=[MinValueValidator(0.01)])
-    image = models.ImageField(verbose_name='Product Image', upload_to='products/')
+    image = models.ImageField(verbose_name='Product Image', upload_to='products/', blank=True)
 
     @property
     def current_stock(self):
@@ -106,7 +106,7 @@ class Product(DateMixin):
 
     @property
     def image_path(self):
-        return f'{MEDIA_ROOT}{self.image.name}'
+        return f'{MEDIA_URL}{self.image.name}'
 
     def __str__(self):
         return f'Product - {self.id} - {self.name}'

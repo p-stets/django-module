@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,6 +27,8 @@ SECRET_KEY = '5!$0a!a*69p9i#4n-!&p=_siwf^g$g#)@9(7)+_6k0@o5vzyw='
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+MEDIA_URL = '/uploads/'
 
 MEDIA_ROOT = '/home/stets/learn.python/django/django-module/uploads/'
 
@@ -127,3 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]

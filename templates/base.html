@@ -1,13 +1,36 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static "css/styles.css" %}">
     <title>{% block title %}Home{% endblock %}</title>
 </head>
 <body>
-    <div style="background-color: grey">
+    <div>
+        {% if  user.is_authenticated%}
+            <div>Welcome, {{user.email}} <a href="{% url 'signout' %}"><button type="submit">Sign Out</button></a>
+            </div>
+            <div>Your balance is: {{user.current_money}}</div>
+            <hr/>
+            <div>
+                <table>
+                    <tr>
+                    <td><a href="{% url 'home' %}"><button type="submit">Home</button></a></td>
+                    <td><a href="{% url 'home' %}"><button type="submit">My orders</button></a></td>
+                    <td><a href="{% url 'home' %}"><button type="submit">Returns</button></a></td>
+                    {% if  user.is_superuser%}
+                    <td><a href="{% url 'home' %}"><button type="submit">New product</button></a></td>
+                    {% endif %}
+                    </tr>
+                </table>
+                <hr/>
+            </div>
+        {% endif %}
+    </div>
+    <div>
         {% block content %}
         {% endblock %}
     </div>

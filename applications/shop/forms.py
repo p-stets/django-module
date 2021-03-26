@@ -1,11 +1,12 @@
-from django.contrib.auth import authenticate, logout
+from django.contrib.auth import authenticate
 from django import forms
-from .models import Product, ProductIncome, ProductSell
+from django.forms import widgets
+from .models import User, Product, ProductIncome, ProductSell
 
 
 class SignInForm(forms.Form):
-    username = forms.CharField(max_length=254)
-    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+    username = forms.CharField(label='Email', max_length=254)
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -15,6 +16,15 @@ class SignInForm(forms.Form):
             self.user = authenticate(username=username, password=password)
             if self.user is None:
                 raise forms.ValidationError('Invalid username or password')
+
+
+class SignUpForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email', 'password', 'base_wallet','username', 'first_name', 'last_name']
+        widgets = {
+            'password': widgets.PasswordInput
+        }
 
 
 class ProductForm(forms.ModelForm):
@@ -32,4 +42,5 @@ class ProductIncomeForm(forms.ModelForm):
 class ProductSellForm(forms.ModelForm):
     class Meta:
         model = ProductSell
-        fields = ['product', 'quantity']
+        fields = ['quantity']
+
