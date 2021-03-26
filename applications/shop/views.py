@@ -2,7 +2,6 @@ from django.http.response import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import SignInForm, ProductForm, SignUpForm, ProductSellForm
-from django.db import models
 from django.contrib.auth import login, logout, authenticate
 from django.views import View
 from applications.shop import models
@@ -126,5 +125,6 @@ class ProductIncomeView(CreateView):
         )
         return redirect('home')
 
+
 class ProductSellDetailView(DetailView):
-    all
+    pass
