@@ -2,11 +2,13 @@ from django.http.response import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import SignInForm, ProductForm, SignUpForm, ProductSellForm
+from django.db import models
 from django.contrib.auth import login, logout, authenticate
 from django.views import View
 from applications.shop import models
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
@@ -36,10 +38,6 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            # username = form.cleaned_data.get('email')
-            # raw_password = form.cleaned_data.get('password')
-            # # user = authenticate(username=username, password=raw_password)
-            # # login(request, user)
             return redirect('home')
     else:
         form = SignUpForm()
@@ -61,6 +59,8 @@ class ProductListView(ListView):
     paginate_by = 10
     queryset = models.Product.objects.all()
     template_name = "products_list.html"
+    allow_empty = True
+    ordering = ['-id']
 
 
 class ProductDetailView(DetailView):
@@ -80,7 +80,15 @@ class ProductDetailView(DetailView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         context['form'] = ProductSellForm
+        context['product_edit_form'] = ProductForm
         return context
+
+
+class ProductCreateView(CreateView):
+    template_name = 'product_create.html'
+    model = models.Product
+    fields = '__all__'
+    success_url = '/'
 
 
 class ProductSellView(DetailView):
@@ -88,7 +96,35 @@ class ProductSellView(DetailView):
     fields = ['quantity']
 
 
-def buy_product(request):
-    if request.method == 'POST':
-        user_id = request.user.id
-        product = request.product
+class ProductSellListView(ListView):
+    model = models.ProductSell
+    fields = '__all__'
+    paginate_by = 10
+    template_name = "sell_list.html"
+    allow_empty = True
+    ordering = ['-id']
+
+    def get_queryset(self):
+        user_id = self.request.user.id
+        if self.request.user.is_superuser:
+            queryset = models.ProductSell.objects.all()
+        else:
+            queryset = models.ProductSell.objects.filter(user_id=user_id)
+        return queryset
+
+
+class ProductIncomeView(CreateView):
+    model = models.ProductIncome
+    fields = ['product', 'quantity']
+    template_name = "product_income.html"
+
+    def post(self, request, *args, **kwargs):
+        models.ProductIncome.objects.create(
+            user=request.user,
+            product_id=request.POST.get('product', None),
+            quantity=request.POST.get('quantity', None)
+        )
+        return redirect('home')
+
+class ProductSellDetailView(DetailView):
+    all

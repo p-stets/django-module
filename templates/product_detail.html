@@ -12,6 +12,15 @@
 <div>In stock: {{object.current_stock}}</div>
 <form action="POST">
 </form>
+
+{% if user.is_superuser %}
+    <hr>
+    <form method="POST">
+        {% csrf_token %}
+        {{ product_edit_form.as_p }}
+        <input type="submit" value="Update Product">
+    </form>
+{% endif %}
 {% include 'buy_product.html' %}
 {% endblock %}
 

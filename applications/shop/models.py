@@ -46,6 +46,12 @@ class ProductMovementMixin(DateMixin):
     quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     status = models.PositiveIntegerField(choices=STATUSES, default=1)
 
+    @property
+    def status_name(self):
+        for item in self.STATUSES:
+            if item[0] == self.status:
+                return item[1]
+
     def __str__(self):
         return f'{self.id} - {self.product}'
 
@@ -117,6 +123,11 @@ class ProductIncome(ProductMovementMixin):
 
 
 class ProductSell(ProductMovementMixin):
+
+    @property
+    def total(self):
+        return self.product.price * self.quantity
+
     def clean(self):
         try:
             product = Product.objects.get(id=self.product_id)

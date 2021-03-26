@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate
 from django import forms
 from django.forms import widgets
 from .models import User, Product, ProductIncome, ProductSell
+from applications.shop import models
 
 
 class SignInForm(forms.Form):
@@ -21,7 +22,7 @@ class SignInForm(forms.Form):
 class SignUpForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['email', 'password', 'base_wallet','username', 'first_name', 'last_name']
+        fields = ['email', 'password', 'base_wallet', 'username', 'first_name', 'last_name']
         widgets = {
             'password': widgets.PasswordInput
         }
@@ -44,3 +45,7 @@ class ProductSellForm(forms.ModelForm):
         model = ProductSell
         fields = ['quantity']
 
+
+# class ProductEditForm(forms.ModelForm):
+#     model = Product
+#     fields = '__all__'

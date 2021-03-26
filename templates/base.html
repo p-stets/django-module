@@ -19,10 +19,11 @@
                 <table>
                     <tr>
                     <td><a href="{% url 'home' %}"><button type="submit">Home</button></a></td>
-                    <td><a href="{% url 'home' %}"><button type="submit">My orders</button></a></td>
-                    <td><a href="{% url 'home' %}"><button type="submit">Returns</button></a></td>
+                    <td><a href="{% url 'orders' %}"><button type="submit">Orders</button></a></td>
                     {% if  user.is_superuser%}
-                    <td><a href="{% url 'home' %}"><button type="submit">New product</button></a></td>
+                    <td><a href="{% url 'home' %}"><button type="submit">Product returnings</button></a></td>
+                    <td><a href="{% url 'new_product' %}"><button type="submit">New Product</button></a></td>
+                    <td><a href="{% url 'product_income' %}"><button type="submit">Product Income</button></a></td>
                     {% endif %}
                     </tr>
                 </table>
@@ -34,5 +35,6 @@
         {% block content %}
         {% endblock %}
     </div>
+    {% include "pagination.html" %}
 </body>
 </html>
