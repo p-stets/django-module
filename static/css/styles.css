@@ -1,0 +1,22 @@
+.product_list {
+    background-color: gainsboro;
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.product_list td {
+    border: 1px solid black;
+}
+
+.product_image {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.pagination {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}

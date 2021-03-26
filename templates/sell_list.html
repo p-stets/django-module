@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="product_list">
+        <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Sum</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+        {% for item in object_list %}
+        <tr>
+            <td><a href="{% url 'orders' %}{{item.id}}/">{{item.id}}</td></a>
+            <td><a href="{% url 'orders' %}{{item.id}}/">{{item.product.name}}</td></a>
+            <td><a href="{% url 'orders' %}{{item.id}}/">{{item.product.price}}</td></a>
+            <td><a href="{% url 'orders' %}{{item.id}}/">{{item.quantity}}</td></a>
+            <td><a href="{% url 'orders' %}{{item.id}}/">{{item.total}}</td></a>
+            <td><a href="{% url 'orders' %}{{item.id}}/">{{item.create_date}}</td></a>
+            <td><a href="{% url 'orders' %}{{item.id}}/">{{item.status_name}}</td></a>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

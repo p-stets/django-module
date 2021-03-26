@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="product_list">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Description</th>
+        </tr>
+        {% for product in object_list %}
+        <tr>
+            <td><a href="{% url 'home' %}{{product.id}}/">{{product.id}}</td></a>
+            <td><a href="{% url 'home' %}{{product.id}}/">{{product.name}}</td></a>
+            <td><a href="{% url 'home' %}{{product.id}}/">{{product.price}}</td></a>
+            <td><a href="{% url 'home' %}{{product.id}}/">{{product.current_stock}}</td></a>
+            <td><a href="{% url 'home' %}{{product.id}}/">{{product.description}}</td></a>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

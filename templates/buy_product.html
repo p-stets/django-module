@@ -1,0 +1,9 @@
+<hr>
+<br/>
+Your Order:
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="product_id" value="{{ object.id }}">
+    <button type="submit">Buy</button>
+</form>

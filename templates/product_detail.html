@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Name: {{ object.name }}</h2>
+<h4>ID: {{ object.id }}</h4>
+<div>Price: ${{ object.price }}</div>
+{% if  object.image %}
+    <img class="product_image" src="{{object.image_path}}" alt="{{product.name}}">
+{% endif %}
+<div>Description: {{object.description}}</div>
+<div>In stock: {{object.current_stock}}</div>
+<form action="POST">
+</form>
+
+{% if user.is_superuser %}
+    <hr>
+    <form method="POST">
+        {% csrf_token %}
+        {{ product_edit_form.as_p }}
+        <input type="submit" value="Update Product">
+    </form>
+{% endif %}
+{% include 'buy_product.html' %}
+{% endblock %}
+
+
